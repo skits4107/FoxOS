@@ -1,2 +1,5 @@
-.elf
-.bin
+*.elf
+*.bin
+*.o
+*.exe
+*.img

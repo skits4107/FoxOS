@@ -53,8 +53,17 @@ clear_bss_loop:
 
     
     adr x0, exception_vector_table
-    msr x0, vbar_el1 //set the excpetion table up
+    msr vbar_el1, x0 //set the excpetion table up
 
     dsb sy //ensure all memory operations are finished system wide
     isb // ensures no instruction in pipeline use stale excpetion vector table
+
+    msr daifclr, #0 //enable all interrupts
+
+    b kernel_main
+
+kernel_main_messed_up:
+    wfe
+    b kernel_main_messed_up
+
     
