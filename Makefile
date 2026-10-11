@@ -11,7 +11,7 @@ ASFLAGS  = -c
 LDFLAGS = -T $(LINKER_SCRIPT) -nostdlib -static -Wl,-n -Wl,--gc-sections
 LDLIBS  = 
 
-TARGET = fox_os.img
+TARGET = kernel8.img
 OBJS = boot.o exception_vectors.o handle_exceptions.o kernel_main.o
 
 all: $(TARGET)
@@ -20,8 +20,8 @@ all: $(TARGET)
 OBJCOPY = aarch64-linux-gnu-objcopy
 
 $(TARGET): $(OBJS) $(LINKER_SCRIPT)
-	$(CC) $(LDFLAGS) $(OBJS) $(LDLIBS) -o fox_os.elf
-	$(OBJCOPY) -O binary fox_os.elf $(TARGET)
+	$(CC) $(LDFLAGS) $(OBJS) $(LDLIBS) -o kernel8.elf
+	$(OBJCOPY) -O binary kernel8.elf $(TARGET)
 
 # Assembly Compilation (Using GCC with -c flag)
 boot.o: boot.S
