@@ -1,0 +1,7 @@
+enable_uart=1
+disable_commandline_tags=1
+arm_64bit=1
+core_freq=250
+
+disable_splash=1
+boot_delay=0

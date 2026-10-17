@@ -5,10 +5,12 @@ AS  = aarch64-linux-gnu-gcc
 
 LINKER_SCRIPT = linker.ld
 
-CCFLAGS = -Wall -O2 -ffreestanding -nostdlib
+CCFLAGS = -Wall -O2 -ffreestanding -nostdlib -mgeneral-regs-only -mstrict-align \
+          -fno-pie -fno-stack-protector -fno-asynchronous-unwind-tables
 ASFLAGS  = -c
 
-LDFLAGS = -T $(LINKER_SCRIPT) -nostdlib -static -Wl,-n -Wl,--gc-sections
+LDFLAGS = -T $(LINKER_SCRIPT) -nostdlib -static -no-pie \
+          -Wl,-n -Wl,--gc-sections -Wl,--build-id=none
 LDLIBS  = 
 
 TARGET = kernel8.img

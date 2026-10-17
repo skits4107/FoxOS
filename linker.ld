@@ -1,24 +1,22 @@
 ENTRY(_start)
 
-PHDRS { none PT_NULL; }
-
 SECTIONS
 {
     /* Start at offset 0 relative to where firmware loads the binary */
     . = 0x000000;
 
     .text : {
-        KEEP(*(.text.boot)) /* Ensure _start is placed at the absolute front */
+        KEEP(*boot.o(.text)) /* Ensure _start is placed at the absolute front */
         *(.text .text.*)
-    } :none
+    } 
 
     .rodata : {
         *(.rodata .rodata.*)
-    } :none
+    } 
 
     .data : {
         *(.data .data.*)
-    } :none
+    } 
 
     /* Define BSS section boundaries relative to the loaded binary */
     .bss (NOLOAD) : {
@@ -28,7 +26,13 @@ SECTIONS
         *(COMMON)
         . = ALIGN(16);
         __bss_end = .;
-    } :none
+    } 
 
     _end = .;
+
+     /DISCARD/ : {
+        *(.note*)
+        *(.comment)
+        *(.eh_frame*)
+    }
 }

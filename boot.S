@@ -47,10 +47,11 @@ is_core_zero:
     adr     x1, __bss_end
 
 clear_bss_loop:
-    strb wzr, [x0], #8 //store 1 byte zero in memory increament address in x0 by one byte
     cmp x0, x1
-    b.hs clear_bss_loop 
-
+    b.hs bss_done
+    str xzr, [x0], #8
+    b clear_bss_loop 
+bss_done:
     
     adr x0, exception_vector_table
     msr vbar_el1, x0 //set the excpetion table up
